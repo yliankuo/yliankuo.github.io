@@ -1,0 +1,381 @@
+<canvas class = "canvas" id="game"></canvas>
+<button class = "strtBut"type="button" id="startBtn" onclick="Game()">Start Game</button> 
+<img class = "ship" id = "ship" src = "Img/Ship/Ship_up.png" style="display: none;"/>
+<img class = "bullet" id = "bullet" src = "Img/bullet.png" style="display: none;"/>
+<!-- CSS -->
+<style type="text/css">
+body{
+  margin:0;
+}
+
+/*canvas Class*/
+.canvas{
+ background-color: black;
+ z-index: -1;
+ display: none"";
+}
+
+/*start Button class*/
+.strtBut{
+  position: absolute;
+  top: 50%;
+  left: 49%;
+  height: 50px;
+  margin: auto;
+}
+
+/*ship image class*/
+.ship{
+ display: none;
+}
+</style>
+
+<!-- JavaScript -->
+
+<script type="text/javascript">
+var ship_dir = 0;
+var can_shoot = true;
+var currentdate = new Date();
+var tdate = 0
+var timer;
+var bulletList = [];
+var posX;
+var posY;
+var canvas1 = document.querySelector('canvas');
+var c = canvas1.getContext('2d');
+var k = 0;
+
+var ct = document.getElementById("game");
+var img = document.createElement("IMG");
+img.setAttribute("src", "Img/Ship/Ship_up.png");
+var bullet = document.createElement("IMG");
+bullet.setAttribute("src", "Img/Bullet/bullet_up.png");
+var ctx = ct.getContext("2d");
+
+// Refresh Canvas
+window.onload = function() {
+canvas1.width = window.innerWidth;
+canvas1.height = window.innerHeight;
+
+}
+
+//Keylistener
+function KeyListener() {
+    this.pressedKeys = [];
+ 
+    this.keydown = function(e) {
+        this.pressedKeys[e.keyCode] = true;
+    };
+ 
+    this.keyup = function(e) {
+        this.pressedKeys[e.keyCode] = false;
+    };
+ 
+    document.addEventListener("keydown", this.keydown.bind(this));
+    document.addEventListener("keyup", this.keyup.bind(this));
+    document.addEventListener("keyleft", this.keydown.bind(this));
+    document.addEventListener("keyright", this.keyup.bind(this));
+    document.addEventListener("space", this.keyup.bind(this));
+}
+ 
+KeyListener.prototype.isPressed = function(key)
+{
+    return this.pressedKeys[key] ? true : false;
+};
+ 
+KeyListener.prototype.addKeyPressListener = function(keyCode, callback)
+{
+    document.addEventListener("keypress", function(e) {
+        if (e.keyCode == keyCode)
+            callback(e);
+    });
+};
+
+//Game Function
+function Game(){
+    var canvas = document.getElementById("game");
+    this.width = canvas.width;
+    this.height = canvas.height;
+    this.context = canvas.getContext("2d");
+    this.keys = new KeyListener();
+    var but = document.getElementById("startBtn");
+    but.style.display = "none";
+    this.ship = new Ship(window.innerWidth/2,window.innerHeight/8*7);
+    MainLoop();
+}
+
+//Game Update
+function Update() {
+	var tx;
+	var ty;
+	var move = false;
+    if (this.paused)
+        return;
+    
+    // Key Direction
+    if (this.keys.isPressed(38)) { // UP
+   		if (posY - 10 > 0) {
+   			img.setAttribute("src", "Img/Ship/Ship_up.png");
+   			tx = 0;
+   			ty = -10
+   			move = true;
+   			ship_dir = 0;
+   		}
+   	}
+   	if (this.keys.isPressed(40)) { // DOWN
+   		if (posY + 60 < window.innerHeight) {
+   			img.setAttribute("src", "Img/Ship/Ship_dwn.png");
+   			tx = 0;
+   			ty = 10
+   			move = true;
+   			ship_dir = 1;
+   		}
+    } if (this.keys.isPressed(39)) { // Right
+    	if (posX + 60 < window.innerWidth) {
+   			img.setAttribute("src", "Img/Ship/Ship_rt.png");
+   			tx = 10;
+   			ty = 0
+   			move = true;
+   			ship_dir = 2;
+   		}
+	}
+	if (this.keys.isPressed(37)) { // Left
+   		if (posX - 10 > 0) {
+   			img.setAttribute("src", "Img/Ship/Ship_lft.png");
+   			tx = -10;
+   			ty = 0
+   			move = true;
+   			ship_dir = 3;
+   		}
+	}
+
+	if (this.keys.isPressed(37) && this.keys.isPressed(40)){ // Bottom Left
+   		if (posX - 10 > 0 && posY + 60 < window.innerHeight) {
+   			img.setAttribute("src", "Img/Ship/Shipbl.png");
+   			tx = -5;
+   			ty = 5;
+   			move = true;
+   			ship_dir = 4;
+   		}
+	}
+
+
+	if (this.keys.isPressed(39) && this.keys.isPressed(40)){ // Bottom Right
+   		if (posX + 60 < window.innerWidth && posY + 60 < window.innerHeight) {
+   			img.setAttribute("src", "Img/Ship/Shipbr.png");
+   			tx = 5;
+   			ty = 5;
+   			move = true;
+   			ship_dir = 5;
+   		}
+	}
+
+
+	if (this.keys.isPressed(37) && this.keys.isPressed(38)){ // Top Left
+   		if (posX - 10 > 0 && posY - 10 > 0) {
+   			img.setAttribute("src", "Img/Ship/Shiptl.png");
+   			tx = -5;
+   			ty = -5;
+   			move = true;
+   			ship_dir = 6;
+   		}
+	}
+
+	if (this.keys.isPressed(39) && this.keys.isPressed(38)){ // Top Right
+   		if (posX + 60 < window.innerWidth && posY - 10 > 0) {
+   			img.setAttribute("src", "Img/Ship/Shiptr.png");
+   			tx = 5;
+   			ty = -5;
+   			move = true;
+   			ship_dir = 7;
+   		}
+	}
+
+
+	if (this.keys.isPressed(32)) { //Space
+		if (can_shoot == true){
+		can_shoot = false;
+		//Bullet State
+		if (ship_dir == 0) {
+			bullet_img(ship_dir);
+			Shoot(posX + 12.5, posY - 40, 0, -15, 0);
+		}
+
+		if (ship_dir == 1) {
+			bullet_img(ship_dir);
+			Shoot(posX + 12.5, posY + 80, 0, 15, 1);
+		}
+
+		if (ship_dir == 2) {
+			bullet_img(ship_dir);
+			Shoot(posX + 60, posY + 10, 15, 0, 2);
+		}
+
+		if (ship_dir == 3) {
+			bullet_img(ship_dir);
+			Shoot(posX  - 25, posY + 10, -15, 0, 3);
+		}
+
+		if (ship_dir == 4) {
+			bullet_img(ship_dir);
+			Shoot(posX - 15, posY + 35, -10 , 10, 4);
+		}
+
+		if (ship_dir == 5) {
+			bullet_img(ship_dir);
+			Shoot(posX + 40, posY + 40, 10 , 10, 5);
+		}
+		if (ship_dir == 6) {
+			bullet_img(ship_dir);
+			Shoot(posX -15 , posY - 30, -10 , -10, 6);
+		}
+
+		if (ship_dir == 7) {
+			bullet_img(ship_dir);
+			Shoot(posX + 40 , posY - 30, 10 , -10, 7);
+		}
+		setTimeout(Fire, 200);
+		}
+		
+
+	}
+	if (move == true)
+	{
+		new Move(tx,ty);	
+		move = false;
+	}
+
+
+};
+
+function bullet_img(n){
+	if (n == 0) {
+		bullet.setAttribute("src", "Img/Bullet/bullet_up.png");	
+	}
+	if (n == 1) {
+		bullet.setAttribute("src", "Img/Bullet/bullet_dwn.png");	
+	}
+	if (n == 2) {
+		bullet.setAttribute("src", "Img/Bullet/bullet_rt.png");	
+	}
+	if (n == 3) {
+		bullet.setAttribute("src", "Img/Bullet/bullet_lft.png");	
+	}	
+	if (n == 4) {
+		bullet.setAttribute("src", "Img/Bullet/bulletbl.png");	
+	}
+	if (n == 5) {
+		bullet.setAttribute("src", "Img/Bullet/bulletbr.png");	
+	}
+	if (n == 6) {
+		bullet.setAttribute("src", "Img/Bullet/bullettl.png");
+	}
+	if (n == 7) {
+		bullet.setAttribute("src", "Img/Bullet/bullettr.png");
+	}
+}
+function Fire(){
+	can_shoot = true;
+}
+
+//Ship Init
+function Ship(x,y) {
+    this.x = x;
+    this.y = y;
+    posX = x;
+    posY = y;
+    temp = ctx.drawImage(img, posX, posY, 50, 50);
+}
+
+//Ship Movement
+function Move(x,y)
+{
+    ctx.globalAlpha=0.1;
+	ctx.fillRect(0,0,window.innerWidth,window.innerHeight);
+	ctx.globalAlpha=1;
+	temp = ctx.drawImage(img, posX + x, posY + y, 50, 50);
+	posX = posX + x;
+	posY = posY + y;
+};
+
+function Shoot(x, y, vex, vey, di)
+{
+	console.log(k);
+	k++;
+	ctx.drawImage(bullet, x , y , 30, 30);
+	bulletList.push(Bullet({bX:x , bY: y, vx: vex, vy: vey, d:di}));
+	BulletMove();
+
+}
+
+function Bullet(I)
+{
+	I.bX;
+	I.bY;
+	I.vx;
+	I.vy;
+	i.d;
+	return I
+}
+
+function bmove_img(n){
+	if (n == 0) {
+		return "Img/Bullet/bullet_up.png";
+	}
+	if (n == 1) {
+		return "Img/Bullet/bullet_dwn.png";	
+	}
+	if (n == 2) {
+		return "Img/Bullet/bullet_rt.png";
+	}
+	if (n == 3) {
+		return "Img/Bullet/bullet_lft.png";
+	}	
+	if (n == 4) {
+		return "Img/Bullet/bulletbl.png";
+	}
+	if (n == 5) {
+		return "Img/Bullet/bulletbr.png";	
+	}
+	if (n == 6) {
+		return "Img/Bullet/bullettl.png";
+	}
+	if (n == 7) {
+		return "Img/Bullet/bullettr.png";
+	}
+}
+function BulletMove()
+{
+	for (i = 0; i < bulletList.length; i++)
+	{
+		if (bulletList[i].bX + bulletList[i].vx > 10 && bulletList[i].bX + 50 + bulletList[i].vx < window.innerWidth){
+			if (bulletList[i].bY + bulletList[i].vy > 10 && bulletList[i].bY + 50 + bulletList[i].vy < window.innerHeight)
+			{
+				var temp_bullet = document.createElement("IMG");
+				temp_bullet.setAttribute("src", bmove_img(bulletList[i].d));
+				bulletList[i].bX = bulletList[i].bX + bulletList[i].vx;
+				bulletList[i].bY = bulletList[i].bY + bulletList[i].vy;
+				ctx.fillRect(bulletList[i].bX - 10, bulletList[i].bY  - 10, 50, 50);
+				ctx.drawImage(temp_bullet, bulletList[i].bX, bulletList[i].bY, 30, 30); 
+
+			}
+			
+		}
+		if(bulletList[i].bX < 0 || bulletList[i].bX > window.innerWidth || bulletList[i].bY < 0 || bulletList[i].bY > window.innerHeight) {
+				bulletList.splice(i,i + 1);
+			 }
+	}
+}
+function MainLoop() {
+	canvas1.width = window.innerWidth;
+	canvas1.height = window.innerHeight;
+	ctx.globalAlpha=0.2;
+	ctx.fillRect(0,0,window.innerWidth,window.innerHeight);
+	ctx.globalAlpha=1;
+	temp = ctx.drawImage(img, posX, posY, 50, 50);
+    Update();
+    BulletMove()
+   	setTimeout(MainLoop, 30);
+}
+
+</script>

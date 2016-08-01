@@ -150,7 +150,7 @@ function Update() {
 
 	if (this.keys.isPressed(37) && this.keys.isPressed(40)){ // Bottom Left
    		if (posX - 10 > 0 && posY + 60 < window.innerHeight) {
-   			img.setAttribute("src", "Img/Ship/Shipbl.png");
+   			img.setAttribute("src", "Img/Ship/shipbl.png");
    			tx = -5;
    			ty = 5;
    			move = true;
@@ -161,7 +161,7 @@ function Update() {
 
 	if (this.keys.isPressed(39) && this.keys.isPressed(40)){ // Bottom Right
    		if (posX + 60 < window.innerWidth && posY + 60 < window.innerHeight) {
-   			img.setAttribute("src", "Img/Ship/Shipbr.png");
+   			img.setAttribute("src", "Img/Ship/shipbr.png");
    			tx = 5;
    			ty = 5;
    			move = true;
@@ -172,7 +172,7 @@ function Update() {
 
 	if (this.keys.isPressed(37) && this.keys.isPressed(38)){ // Top Left
    		if (posX - 10 > 0 && posY - 10 > 0) {
-   			img.setAttribute("src", "Img/Ship/Shiptl.png");
+   			img.setAttribute("src", "Img/Ship/shiptl.png");
    			tx = -5;
    			ty = -5;
    			move = true;
@@ -182,7 +182,7 @@ function Update() {
 
 	if (this.keys.isPressed(39) && this.keys.isPressed(38)){ // Top Right
    		if (posX + 60 < window.innerWidth && posY - 10 > 0) {
-   			img.setAttribute("src", "Img/Ship/Shiptr.png");
+   			img.setAttribute("src", "Img/Ship/shiptr.png");
    			tx = 5;
    			ty = -5;
    			move = true;

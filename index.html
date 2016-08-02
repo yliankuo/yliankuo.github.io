@@ -1,380 +1,294 @@
-<canvas class = "canvas" id="game"></canvas>
-<button class = "strtBut"type="button" id="startBtn" onclick="Game()">Start Game</button> 
-<img class = "ship" id = "ship" src = "Img/Ship/Ship_up.png" style="display: none;"/>
-<!-- CSS -->
-<style type="text/css">
-body{
-  margin:0;
-}
+<!DOCTYPE HTML>
+<!--
+	Overflow by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Overflow by HTML5 UP</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
+	</head>
+	<body>
 
-/*canvas Class*/
-.canvas{
- background-color: black;
- z-index: -1;
- display: none"";
-}
+		<!-- Header -->
+			<section id="header">
+				<header>
+					<h1>Overflow</h1>
+					<p>By HTML5 UP</p>
+				</header>
+				<footer>
+					<a href="#banner" class="button style2 scrolly-middle">Proceed as anticipated</a>
+				</footer>
+			</section>
 
-/*start Button class*/
-.strtBut{
-  position: absolute;
-  top: 50%;
-  left: 49%;
-  height: 50px;
-  margin: auto;
-}
+		<!-- Banner -->
+			<section id="banner">
+				<header>
+					<h2>This is Overflow</h2>
+				</header>
+				<p>A brand new site template designed by <a href="http://twitter.com/ajlkn">AJ</a> for <a href="http://html5up.net">HTML5 UP</a>.<br />
+				It’s fully responsive, built on <strong>skel</strong>, and of course entirely free<br />
+				under the <a href="http://html5up.net/license">Creative Commons license</a>.</p>
+				<footer>
+					<a href="#first" class="button style2 scrolly">Act on this message</a>
+				</footer>
+			</section>
 
-/*ship image class*/
-.ship{
- display: none;
-}
-</style>
+		<!-- Feature 1 -->
+			<article id="first" class="container box style1 right">
+				<a href="#" class="image fit"><img src="images/pic01.jpg" alt="" /></a>
+				<div class="inner">
+					<header>
+						<h2>Lorem ipsum<br />
+						dolor sit amet</h2>
+					</header>
+					<p>Tortor faucibus ullamcorper nec tempus purus sed penatibus. Lacinia pellentesque eleifend vitae est elit tristique velit tempus etiam.</p>
+				</div>
+			</article>
 
-<!-- JavaScript -->
+		<!-- Feature 2 -->
+			<article class="container box style1 left">
+				<a href="#" class="image fit"><img src="images/pic02.jpg" alt="" /></a>
+				<div class="inner">
+					<header>
+						<h2>Mollis posuere<br />
+						lectus lacus</h2>
+					</header>
+					<p>Rhoncus mattis egestas sed fusce sodales rutrum et etiam ullamcorper. Etiam egestas scelerisque ac duis magna lorem ipsum dolor.</p>
+				</div>
+			</article>
 
-<script type="text/javascript">
-var ship_dir = 0;
-var can_shoot = true;
-var currentdate = new Date();
-var tdate = 0
-var timer;
-var bulletList = [];
-var posX;
-var posY;
-var canvas1 = document.querySelector('canvas');
-var c = canvas1.getContext('2d');
-var k = 0;
+		<!-- Portfolio -->
+			<article class="container box style2">
+				<header>
+					<h2>Magnis parturient</h2>
+					<p>Justo phasellus et aenean dignissim<br />
+					placerat cubilia purus lectus.</p>
+				</header>
+				<div class="inner gallery">
+					<div class="row 0%">
+						<div class="3u 12u(mobile)"><a href="images/fulls/01.jpg" class="image fit"><img src="images/thumbs/01.jpg" alt="" title="Ad infinitum" /></a></div>
+						<div class="3u 12u(mobile)"><a href="images/fulls/02.jpg" class="image fit"><img src="images/thumbs/02.jpg" alt="" title="Dressed in Clarity" /></a></div>
+						<div class="3u 12u(mobile)"><a href="images/fulls/03.jpg" class="image fit"><img src="images/thumbs/03.jpg" alt="" title="Raven" /></a></div>
+						<div class="3u 12u(mobile)"><a href="images/fulls/04.jpg" class="image fit"><img src="images/thumbs/04.jpg" alt="" title="I'll have a cup of Disneyland, please" /></a></div>
+					</div>
+					<div class="row 0%">
+						<div class="3u 12u(mobile)"><a href="images/fulls/05.jpg" class="image fit"><img src="images/thumbs/05.jpg" alt="" title="Cherish" /></a></div>
+						<div class="3u 12u(mobile)"><a href="images/fulls/06.jpg" class="image fit"><img src="images/thumbs/06.jpg" alt="" title="Different." /></a></div>
+						<div class="3u 12u(mobile)"><a href="images/fulls/07.jpg" class="image fit"><img src="images/thumbs/07.jpg" alt="" title="History was made here" /></a></div>
+						<div class="3u 12u(mobile)"><a href="images/fulls/08.jpg" class="image fit"><img src="images/thumbs/08.jpg" alt="" title="People come and go and walk away" /></a></div>
+					</div>
+				</div>
+			</article>
 
-var ct = document.getElementById("game");
-var img = document.createElement("IMG");
-img.setAttribute("src", "Img/Ship/Ship_up.png");
-var bullet = document.createElement("IMG");
-bullet.setAttribute("src", "Img/Bullet/bullet_up.png");
-var ctx = ct.getContext("2d");
+		<!-- Contact -->
+			<article class="container box style3">
+				<header>
+					<h2>Nisl sed ultricies</h2>
+					<p>Diam dignissim lectus eu ornare volutpat orci.</p>
+				</header>
+				<form method="post" action="#">
+					<div class="row 50%">
+						<div class="6u 12u$(mobile)"><input type="text" class="text" name="name" placeholder="Name" /></div>
+						<div class="6u$ 12u$(mobile)"><input type="text" class="text" name="email" placeholder="Email" /></div>
+						<div class="12u$">
+							<textarea name="message" placeholder="Message"></textarea>
+						</div>
+						<div class="12u$">
+							<ul class="actions">
+								<li><input type="submit" value="Send Message" /></li>
+							</ul>
+						</div>
+					</div>
+				</form>
+			</article>
 
-// Refresh Canvas
-window.onload = function() {
-canvas1.width = window.innerWidth;
-canvas1.height = window.innerHeight;
+		<!-- Generic -->
+		<!--
+			<article class="container box style3">
+				<header>
+					<h2>Generic Box</h2>
+					<p>Just a generic box. Nothing to see here.</p>
+				</header>
+				<section>
+					<header>
+						<h3>Paragraph</h3>
+						<p>This is a subtitle</p>
+					</header>
+					<p>Phasellus nisl nisl, varius id <sup>porttitor sed pellentesque</sup> ac orci. Pellentesque
+					habitant <strong>strong</strong> tristique <b>bold</b> et netus <i>italic</i> malesuada <em>emphasized</em> ac turpis egestas. Morbi
+					leo suscipit ut. Praesent <sub>id turpis vitae</sub> turpis pretium ultricies. Vestibulum sit
+					amet risus elit.</p>
+				</section>
+				<section>
+					<header>
+						<h3>Blockquote</h3>
+					</header>
+					<blockquote>Fringilla nisl. Donec accumsan interdum nisi, quis tincidunt felis sagittis eget.
+					tempus euismod. Vestibulum ante ipsum primis in faucibus.</blockquote>
+				</section>
+				<section>
+					<header>
+						<h3>Divider</h3>
+					</header>
+					<p>Donec consectetur <a href="#">vestibulum dolor et pulvinar</a>. Etiam vel felis enim, at viverra
+					ligula. Ut porttitor sagittis lorem, quis eleifend nisi ornare vel. Praesent nec orci
+					facilisis leo magna. Cras sit amet urna eros, id egestas urna. Quisque aliquam
+					tempus euismod. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices
+					posuere cubilia.</p>
+					<hr />
+					<p>Donec consectetur vestibulum dolor et pulvinar. Etiam vel felis enim, at viverra
+					ligula. Ut porttitor sagittis lorem, quis eleifend nisi ornare vel. Praesent nec orci
+					facilisis leo magna. Cras sit amet urna eros, id egestas urna. Quisque aliquam
+					tempus euismod. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices
+					posuere cubilia.</p>
+				</section>
+				<section>
+					<header>
+						<h3>Unordered List</h3>
+					</header>
+					<ul class="default">
+						<li>Donec consectetur vestibulum dolor et pulvinar. Etiam vel felis enim, at viverra ligula. Ut porttitor sagittis lorem, quis eleifend nisi ornare vel.</li>
+						<li>Donec consectetur vestibulum dolor et pulvinar. Etiam vel felis enim, at viverra ligula. Ut porttitor sagittis lorem, quis eleifend nisi ornare vel.</li>
+						<li>Donec consectetur vestibulum dolor et pulvinar. Etiam vel felis enim, at viverra ligula. Ut porttitor sagittis lorem, quis eleifend nisi ornare vel.</li>
+						<li>Donec consectetur vestibulum dolor et pulvinar. Etiam vel felis enim, at viverra ligula. Ut porttitor sagittis lorem, quis eleifend nisi ornare vel.</li>
+					</ul>
+				</section>
+				<section>
+					<header>
+						<h3>Ordered List</h3>
+					</header>
+					<ol class="default">
+						<li>Donec consectetur vestibulum dolor et pulvinar. Etiam vel felis enim, at viverra ligula. Ut porttitor sagittis lorem, quis eleifend nisi ornare vel.</li>
+						<li>Donec consectetur vestibulum dolor et pulvinar. Etiam vel felis enim, at viverra ligula. Ut porttitor sagittis lorem, quis eleifend nisi ornare vel.</li>
+						<li>Donec consectetur vestibulum dolor et pulvinar. Etiam vel felis enim, at viverra ligula. Ut porttitor sagittis lorem, quis eleifend nisi ornare vel.</li>
+						<li>Donec consectetur vestibulum dolor et pulvinar. Etiam vel felis enim, at viverra ligula. Ut porttitor sagittis lorem, quis eleifend nisi ornare vel.</li>
+					</ol>
+				</section>
+				<section>
+					<header>
+						<h3>Table</h3>
+					</header>
+					<div class="table-wrapper">
+						<table class="default">
+							<thead>
+								<tr>
+									<th>ID</th>
+									<th>Name</th>
+									<th>Description</th>
+									<th>Price</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>45815</td>
+									<td>Something</td>
+									<td>Ut porttitor sagittis lorem quis nisi ornare.</td>
+									<td>29.99</td>
+								</tr>
+								<tr>
+									<td>24524</td>
+									<td>Nothing</td>
+									<td>Ut porttitor sagittis lorem quis nisi ornare.</td>
+									<td>19.99</td>
+								</tr>
+								<tr>
+									<td>45815</td>
+									<td>Something</td>
+									<td>Ut porttitor sagittis lorem quis nisi ornare.</td>
+									<td>29.99</td>
+								</tr>
+								<tr>
+									<td>24524</td>
+									<td>Nothing</td>
+									<td>Ut porttitor sagittis lorem quis nisi ornare.</td>
+									<td>19.99</td>
+								</tr>
+							</tbody>
+							<tfoot>
+								<tr>
+									<td colspan="3"></td>
+									<td>100.00</td>
+								</tr>
+							</tfoot>
+						</table>
+					</div>
+				</section>
+				<section>
+					<header>
+						<h3>Form</h3>
+					</header>
+					<form method="post" action="#">
+						<div class="row">
+							<div class="6u">
+								<input class="text" type="text" name="name" id="name" value="" placeholder="John Doe" />
+							</div>
+							<div class="6u">
+								<input class="text" type="text" name="email" id="email" value="" placeholder="johndoe@domain.tld" />
+							</div>
+						</div>
+						<div class="row">
+							<div class="12u">
+								<select name="department" id="department">
+									<option value="">Choose a department</option>
+									<option value="1">Manufacturing</option>
+									<option value="2">Administration</option>
+									<option value="3">Support</option>
+								</select>
+							</div>
+						</div>
+						<div class="row">
+							<div class="12u">
+								<input class="text" type="text" name="subject" id="subject" value="" placeholder="Enter your subject" />
+							</div>
+						</div>
+						<div class="row">
+							<div class="12u">
+								<textarea name="message" id="message" placeholder="Enter your message"></textarea>
+							</div>
+						</div>
+						<div class="row">
+							<div class="12u">
+								<ul class="actions">
+									<li><input type="submit" value="Submit" /></li>
+									<li><input type="reset" class="style3" value="Clear Form" /></li>
+								</ul>
+							</div>
+						</div>
+					</form>
+				</section>
+			</article>
+		-->
 
-}
+		<section id="footer">
+			<ul class="icons">
+				<li><a href="#" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+				<li><a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+				<li><a href="#" class="icon fa-google-plus"><span class="label">Google+</span></a></li>
+				<li><a href="#" class="icon fa-pinterest"><span class="label">Pinterest</span></a></li>
+				<li><a href="#" class="icon fa-dribbble"><span class="label">Dribbble</span></a></li>
+				<li><a href="#" class="icon fa-linkedin"><span class="label">LinkedIn</span></a></li>
+			</ul>
+			<div class="copyright">
+				<ul class="menu">
+					<li>&copy; Untitled. All rights reserved.</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+				</ul>
+			</div>
+		</section>
 
-//Keylistener
-function KeyListener() {
-    this.pressedKeys = [];
- 
-    this.keydown = function(e) {
-        this.pressedKeys[e.keyCode] = true;
-    };
- 
-    this.keyup = function(e) {
-        this.pressedKeys[e.keyCode] = false;
-    };
- 
-    document.addEventListener("keydown", this.keydown.bind(this));
-    document.addEventListener("keyup", this.keyup.bind(this));
-    document.addEventListener("keyleft", this.keydown.bind(this));
-    document.addEventListener("keyright", this.keyup.bind(this));
-    document.addEventListener("space", this.keyup.bind(this));
-}
- 
-KeyListener.prototype.isPressed = function(key)
-{
-    return this.pressedKeys[key] ? true : false;
-};
- 
-KeyListener.prototype.addKeyPressListener = function(keyCode, callback)
-{
-    document.addEventListener("keypress", function(e) {
-        if (e.keyCode == keyCode)
-            callback(e);
-    });
-};
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.scrolly.min.js"></script>
+			<script src="assets/js/jquery.poptrox.min.js"></script>
+			<script src="assets/js/skel.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+			<script src="assets/js/main.js"></script>
 
-//Game Function
-function Game(){
-    var canvas = document.getElementById("game");
-    this.width = canvas.width;
-    this.height = canvas.height;
-    this.context = canvas.getContext("2d");
-    this.keys = new KeyListener();
-    var but = document.getElementById("startBtn");
-    but.style.display = "none";
-    this.ship = new Ship(window.innerWidth/2,window.innerHeight/8*7);
-    MainLoop();
-}
-
-//Game Update
-function Update() {
-	var tx;
-	var ty;
-	var move = false;
-    if (this.paused)
-        return;
-    
-    // Key Direction
-    if (this.keys.isPressed(38)) { // UP
-   		if (posY - 10 > 0) {
-   			img.setAttribute("src", "Img/Ship/Ship_up.png");
-   			tx = 0;
-   			ty = -10
-   			move = true;
-   			ship_dir = 0;
-   		}
-   	}
-   	if (this.keys.isPressed(40)) { // DOWN
-   		if (posY + 60 < window.innerHeight) {
-   			img.setAttribute("src", "Img/Ship/Ship_dwn.png");
-   			tx = 0;
-   			ty = 10
-   			move = true;
-   			ship_dir = 1;
-   		}
-    } if (this.keys.isPressed(39)) { // Right
-    	if (posX + 60 < window.innerWidth) {
-   			img.setAttribute("src", "Img/Ship/Ship_rt.png");
-   			tx = 10;
-   			ty = 0
-   			move = true;
-   			ship_dir = 2;
-   		}
-	}
-	if (this.keys.isPressed(37)) { // Left
-   		if (posX - 10 > 0) {
-   			img.setAttribute("src", "Img/Ship/Ship_lft.png");
-   			tx = -10;
-   			ty = 0
-   			move = true;
-   			ship_dir = 3;
-   		}
-	}
-
-	if (this.keys.isPressed(37) && this.keys.isPressed(40)){ // Bottom Left
-   		if (posX - 10 > 0 && posY + 60 < window.innerHeight) {
-   			img.setAttribute("src", "Img/Ship/shipbl.png");
-   			tx = -5;
-   			ty = 5;
-   			move = true;
-   			ship_dir = 4;
-   		}
-	}
-
-
-	if (this.keys.isPressed(39) && this.keys.isPressed(40)){ // Bottom Right
-   		if (posX + 60 < window.innerWidth && posY + 60 < window.innerHeight) {
-   			img.setAttribute("src", "Img/Ship/shipbr.png");
-   			tx = 5;
-   			ty = 5;
-   			move = true;
-   			ship_dir = 5;
-   		}
-	}
-
-
-	if (this.keys.isPressed(37) && this.keys.isPressed(38)){ // Top Left
-   		if (posX - 10 > 0 && posY - 10 > 0) {
-   			img.setAttribute("src", "Img/Ship/shiptl.png");
-   			tx = -5;
-   			ty = -5;
-   			move = true;
-   			ship_dir = 6;
-   		}
-	}
-
-	if (this.keys.isPressed(39) && this.keys.isPressed(38)){ // Top Right
-   		if (posX + 60 < window.innerWidth && posY - 10 > 0) {
-   			img.setAttribute("src", "Img/Ship/shiptr.png");
-   			tx = 5;
-   			ty = -5;
-   			move = true;
-   			ship_dir = 7;
-   		}
-	}
-
-
-	if (this.keys.isPressed(32)) { //Space
-		if (can_shoot == true){
-		can_shoot = false;
-		//Bullet State
-		if (ship_dir == 0) {
-			bullet_img(ship_dir);
-			Shoot(posX + 12.5, posY - 40, 0, -15, 0);
-		}
-
-		if (ship_dir == 1) {
-			bullet_img(ship_dir);
-			Shoot(posX + 12.5, posY + 80, 0, 15, 1);
-		}
-
-		if (ship_dir == 2) {
-			bullet_img(ship_dir);
-			Shoot(posX + 60, posY + 10, 15, 0, 2);
-		}
-
-		if (ship_dir == 3) {
-			bullet_img(ship_dir);
-			Shoot(posX  - 25, posY + 10, -15, 0, 3);
-		}
-
-		if (ship_dir == 4) {
-			bullet_img(ship_dir);
-			Shoot(posX - 15, posY + 35, -10 , 10, 4);
-		}
-
-		if (ship_dir == 5) {
-			bullet_img(ship_dir);
-			Shoot(posX + 40, posY + 40, 10 , 10, 5);
-		}
-		if (ship_dir == 6) {
-			bullet_img(ship_dir);
-			Shoot(posX -15 , posY - 30, -10 , -10, 6);
-		}
-
-		if (ship_dir == 7) {
-			bullet_img(ship_dir);
-			Shoot(posX + 40 , posY - 30, 10 , -10, 7);
-		}
-		setTimeout(Fire, 200);
-		}
-		
-
-	}
-	if (move == true)
-	{
-		new Move(tx,ty);	
-		move = false;
-	}
-
-
-};
-
-function bullet_img(n){
-	if (n == 0) {
-		bullet.setAttribute("src", "Img/Bullet/bullet_up.png");	
-	}
-	if (n == 1) {
-		bullet.setAttribute("src", "Img/Bullet/bullet_dwn.png");	
-	}
-	if (n == 2) {
-		bullet.setAttribute("src", "Img/Bullet/bullet_rt.png");	
-	}
-	if (n == 3) {
-		bullet.setAttribute("src", "Img/Bullet/bullet_lft.png");	
-	}	
-	if (n == 4) {
-		bullet.setAttribute("src", "Img/Bullet/bulletbl.png");	
-	}
-	if (n == 5) {
-		bullet.setAttribute("src", "Img/Bullet/bulletbr.png");	
-	}
-	if (n == 6) {
-		bullet.setAttribute("src", "Img/Bullet/bullettl.png");
-	}
-	if (n == 7) {
-		bullet.setAttribute("src", "Img/Bullet/bullettr.png");
-	}
-}
-function Fire(){
-	can_shoot = true;
-}
-
-//Ship Init
-function Ship(x,y) {
-    this.x = x;
-    this.y = y;
-    posX = x;
-    posY = y;
-    temp = ctx.drawImage(img, posX, posY, 50, 50);
-}
-
-//Ship Movement
-function Move(x,y)
-{
-    ctx.globalAlpha=0.1;
-	ctx.fillRect(0,0,window.innerWidth,window.innerHeight);
-	ctx.globalAlpha=1;
-	temp = ctx.drawImage(img, posX + x, posY + y, 50, 50);
-	posX = posX + x;
-	posY = posY + y;
-};
-
-function Shoot(x, y, vex, vey, di)
-{
-	console.log(k);
-	k++;
-	ctx.drawImage(bullet, x , y , 30, 30);
-	bulletList.push(Bullet({bX:x , bY: y, vx: vex, vy: vey, d:di}));
-	BulletMove();
-
-}
-
-function Bullet(I)
-{
-	I.bX;
-	I.bY;
-	I.vx;
-	I.vy;
-	i.d;
-	return I
-}
-
-function bmove_img(n){
-	if (n == 0) {
-		return "Img/Bullet/bullet_up.png";
-	}
-	if (n == 1) {
-		return "Img/Bullet/bullet_dwn.png";	
-	}
-	if (n == 2) {
-		return "Img/Bullet/bullet_rt.png";
-	}
-	if (n == 3) {
-		return "Img/Bullet/bullet_lft.png";
-	}	
-	if (n == 4) {
-		return "Img/Bullet/bulletbl.png";
-	}
-	if (n == 5) {
-		return "Img/Bullet/bulletbr.png";	
-	}
-	if (n == 6) {
-		return "Img/Bullet/bullettl.png";
-	}
-	if (n == 7) {
-		return "Img/Bullet/bullettr.png";
-	}
-}
-function BulletMove()
-{
-	for (i = 0; i < bulletList.length; i++)
-	{
-		if (bulletList[i].bX + bulletList[i].vx > 10 && bulletList[i].bX + 50 + bulletList[i].vx < window.innerWidth){
-			if (bulletList[i].bY + bulletList[i].vy > 10 && bulletList[i].bY + 50 + bulletList[i].vy < window.innerHeight)
-			{
-				var temp_bullet = document.createElement("IMG");
-				temp_bullet.setAttribute("src", bmove_img(bulletList[i].d));
-				bulletList[i].bX = bulletList[i].bX + bulletList[i].vx;
-				bulletList[i].bY = bulletList[i].bY + bulletList[i].vy;
-				ctx.fillRect(bulletList[i].bX - 10, bulletList[i].bY  - 10, 50, 50);
-				ctx.drawImage(temp_bullet, bulletList[i].bX, bulletList[i].bY, 30, 30); 
-
-			}
-			
-		}
-		if(bulletList[i].bX < 0 || bulletList[i].bX > window.innerWidth || bulletList[i].bY < 0 || bulletList[i].bY > window.innerHeight) {
-				bulletList.splice(i,i + 1);
-			 }
-	}
-}
-function MainLoop() {
-	canvas1.width = window.innerWidth;
-	canvas1.height = window.innerHeight;
-	ctx.globalAlpha=0.2;
-	ctx.fillRect(0,0,window.innerWidth,window.innerHeight);
-	ctx.globalAlpha=1;
-	temp = ctx.drawImage(img, posX, posY, 50, 50);
-    Update();
-    BulletMove()
-   	setTimeout(MainLoop, 30);
-}
-
-</script>
+	</body>
+</html>

@@ -1,0 +1,18 @@
+body{
+  margin:0;
+}
+.canvas{
+ background-color: black;
+ z-index: -1;
+ display: none"";
+}
+.strtBut{
+  position: absolute;
+  top: 50%;
+  left: 49%;
+  height: 50px;
+  margin: auto;
+}
+.ship{
+ display: none;
+}
